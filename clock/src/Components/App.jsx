@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 function App() {
   let time = new Date().toLocaleTimeString();
-  time.substring(0, 6);
   console.log(time);
   let [Time, setTime] = useState(time.substring(0, 8));
 
