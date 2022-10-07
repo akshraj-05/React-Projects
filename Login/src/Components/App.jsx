@@ -5,8 +5,11 @@ function App() {
 
     const [massage, setMassage] = useState("Hello");
     const [Color, setColor] = useState({ backgroundColor: "white" });
-    const [Name, setName] = useState("");
-    const [Heading, setHeading] = useState("");
+    const [contact, setContact] = useState({
+        fName: "",
+        lName: "",
+        email: ""
+    });
     function over() {
         setColor(previousState => {
             return { ...previousState, backgroundColor: "black" }
@@ -20,28 +23,53 @@ function App() {
     function handleMassage(event) {
 
         setMassage("Submitted");
-        handleHeading();
         event.preventDefault();
     }
-    function handleHeading() {
-        setHeading(Name);
-    }
-    function handleNameChange(event) {
 
-        setName(event.target.value);
 
+
+    function handalingContact(event) {
+        const { name, value } = event.target;
+        console.log(name, value);
+
+        setContact((prevState) => {
+            if (name === "fName") {
+                return { ...prevState, fName: value };
+            } else if (name === "lName") {
+                return { ...prevState, lName: value };
+            } else {
+                return { ...prevState, email: value };
+            }
+        });
     }
     return (
         <div className="container">
-            <h1>{massage} {Heading}</h1>
+            <h1>{massage}  {contact.fName} {contact.lName}</h1>
+            <p>{contact.email}</p>
             <form onSubmit={handleMassage}>
-                <input type="text" onChange={handleNameChange} value={Name} placeholder="What's your name?" />
+                <input
+                    onChange={handalingContact}
+                    name="fName"
+                    value={contact.fName}
+                    placeholder="First Name"
+                />
+                <input
+                    onChange={handalingContact}
+                    name="lName"
+                    value={contact.lName}
+                    placeholder="Last Name"
+                />
+                <input
+                    onChange={handalingContact}
+                    name="email"
+                    value={contact.email}
+                    placeholder="Email"
+                />
                 <button
                     onMouseOver={over}
                     onMouseOut={out}
                     style={Color}
                     type="submit"
-
                 >
                     Submit
                 </button>
